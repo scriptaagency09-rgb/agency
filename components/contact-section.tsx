@@ -110,15 +110,24 @@ export function ContactSection() {
       })
 
       if (!response.ok) {
-        throw new Error("Form servisi hatası")
+        let apiMessage = "Form servisi hatası"
+        try {
+          const err = (await response.json()) as { error?: string }
+          if (err?.error) apiMessage = err.error
+        } catch {
+          // no-op
+        }
+        throw new Error(apiMessage)
       }
 
       setSentHint("Mesajınız alındı. En kısa sürede dönüş yapacağız.")
       reset()
-    } catch {
-      setSentHint(
-        "Gönderim başarısız. Lütfen daha sonra tekrar deneyin.",
-      )
+    } catch (error) {
+      const message =
+        error instanceof Error && error.message
+          ? error.message
+          : "Gönderim başarısız. Lütfen daha sonra tekrar deneyin."
+      setSentHint(message)
     } finally {
       setSubmitting(false)
     }
