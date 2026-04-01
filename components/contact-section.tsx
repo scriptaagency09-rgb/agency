@@ -1,6 +1,6 @@
 "use client"
 
-import { Mail, Phone } from "lucide-react"
+import { Mail, Phone, Send } from "lucide-react"
 import { useState } from "react"
 import { useForm, Controller } from "react-hook-form"
 import { z } from "zod"
@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/select"
 
 const CONTACT_EMAIL = "scriptaagency09@gmail.com"
-const CONTACT_PHONE = "+90 555 123 45 67"
+const CONTACT_PHONE = "+90 551 118 75 80"
 
 const teklifSchema = z.object({
   firma: z.string().min(2, "Firma adı gerekli"),
@@ -67,11 +67,11 @@ export function ContactSection() {
     mode: "onTouched",
   })
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     if (submitting) return
     setSubmitting(true)
 
-    const subject = `Proje Teklifi - ${data.projeAdi}`
+    const subject = `İletişim Talebi - ${data.projeAdi}`
     const body = [
       `Firma: ${data.firma}`,
       `Proje Adı: ${data.projeAdi}`,
@@ -86,15 +86,42 @@ export function ContactSection() {
       .filter(Boolean)
       .join("\n")
 
-    setSentHint("E-posta uygulamanız açılıyor (taslak oluşturuluyor)...")
+    setSentHint("Mesajınız gönderiliyor...")
 
-    const href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          subject,
+          body,
+          firma: data.firma,
+          projeAdi: data.projeAdi,
+          yetkiliAdiSoyadi: data.yetkiliAdiSoyadi,
+          email: data.email,
+          telefon: data.telefon,
+          hizmetTuru: data.hizmetTuru,
+          tahminiButce: `${data.tahminiButce.toLocaleString("tr-TR")} TL`,
+          hedefSuresi: data.hedefSuresi,
+          not: data.not?.trim() || "-",
+        }),
+      })
 
-    window.location.href = href
-    reset()
-    setSubmitting(false)
+      if (!response.ok) {
+        throw new Error("Form servisi hatası")
+      }
+
+      setSentHint("Mesajınız alındı. En kısa sürede dönüş yapacağız.")
+      reset()
+    } catch {
+      setSentHint(
+        "Gönderim başarısız. Lütfen daha sonra tekrar deneyin.",
+      )
+    } finally {
+      setSubmitting(false)
+    }
   })
 
   return (
@@ -150,7 +177,7 @@ export function ContactSection() {
               </div>
 
               <p className="text-foreground/70 text-sm leading-relaxed">
-                Aşağıdaki alanları doldurun. Form bilgilerinizi e-posta taslağı olarak otomatik paylaşalım.
+                Aşağıdaki alanları doldurun. Talebiniz doğrudan e-posta adresimize iletilir.
               </p>
             </div>
           </div>
@@ -351,7 +378,10 @@ export function ContactSection() {
                     disabled={submitting}
                     className="w-full rounded-sm bg-gradient-to-r from-gold-dark via-gold to-gold-dark text-background hover:text-[#0a0a0a] transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    {submitting ? "Gönderiliyor..." : "Teklif Talep Et"}
+                    <span className="inline-flex items-center justify-center gap-2">
+                      <Send className="w-4 h-4" />
+                      {submitting ? "Gönderiliyor..." : "Teklif Talebi Gönder"}
+                    </span>
                   </Button>
                 </form>
               </div>
