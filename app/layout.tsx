@@ -15,22 +15,34 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'SCRIPTA DIJITAL | Premium Dijital Ajans',
+  title: 'SCRIPTA DİJİTAL | Premium Dijital Ajans',
   description: 'Vizyonunuzu anlatan dijital çözümler üretiyoruz. Seçici yaratıcı profesyoneller ve üst düzey markalar için butik dijital deneyimler.',
-  generator: 'v0.app',
   icons: {
     icon: [
       {
+        url: '/favicon-32.png',
+        sizes: '32x32',
+        type: 'image/png',
+      },
+      {
+        url: '/favicon-48.png',
+        sizes: '48x48',
+        type: 'image/png',
+      },
+      {
+        url: '/favicon-64.png',
+        sizes: '64x64',
+        type: 'image/png',
+      },
+      {
         url: '/icon-light-32x32.png',
+        sizes: '32x32',
         media: '(prefers-color-scheme: light)',
       },
       {
         url: '/icon-dark-32x32.png',
+        sizes: '32x32',
         media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
       },
     ],
     apple: '/apple-icon.png',
