@@ -4,8 +4,8 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(0.08 0 0);
-  --foreground: oklch(0.98 0 0);
+  --background: #0b0c10;
+  --foreground: oklch(0.96 0.005 95);
   --card: oklch(0.1 0 0);
   --card-foreground: oklch(0.98 0 0);
   --popover: oklch(0.1 0 0);
@@ -15,7 +15,7 @@
   --secondary: oklch(0.15 0 0);
   --secondary-foreground: oklch(0.98 0 0);
   --muted: oklch(0.18 0 0);
-  --muted-foreground: oklch(0.65 0 0);
+  --muted-foreground: oklch(0.76 0.01 95);
   --accent: oklch(0.75 0.12 85);
   --accent-foreground: oklch(0.1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
@@ -45,7 +45,8 @@
 
 
 @theme inline {
-  --font-sans: 'Geist', 'Geist Fallback';
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-heading);
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -93,7 +94,59 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    letter-spacing: 0.012em;
+    font-weight: 300;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif text-foreground;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+    line-height: 1.08;
+  }
+
+  p,
+  span,
+  li,
+  a {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.014em;
+    color: oklch(0.8 0.01 95);
+  }
+
+  a {
+    color: oklch(0.86 0.01 95);
+    transition: color 180ms ease;
+  }
+
+  a:hover {
+    color: oklch(0.95 0.01 95);
+  }
+
+  button :is(p, span, li, a),
+  [data-slot='button'] :is(p, span, li, a) {
+    color: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+  }
+}
+
+@layer utilities {
+  .font-serif {
+    font-family: var(--font-heading), sans-serif !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.03em !important;
+    color: oklch(0.96 0.005 95) !important;
+  }
+
+  .font-sans {
+    font-family: var(--font-body), sans-serif !important;
+    letter-spacing: 0.014em !important;
   }
 }
 

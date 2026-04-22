@@ -78,7 +78,7 @@ function AnimatedNumber({
   }, [durationMs, to, useDecimals, start])
 
   return (
-    <span ref={elRef} aria-label={`${to}${suffix}`} className="font-sans">
+    <span ref={elRef} aria-label={`${to}${suffix}`} className="font-sans font-bold">
       {value}
       {suffix}
     </span>
@@ -171,7 +171,7 @@ export function HeroSection() {
               <p className="font-sans text-2xl sm:text-3xl text-gold tracking-wide font-semibold">
                 <AnimatedNumber to={2026} />
               </p>
-              <p className="text-[10px] sm:text-xs text-muted-foreground/65 mt-1.5 tracking-[0.04em] sm:tracking-[0.08em] whitespace-nowrap">
+              <p className="mt-1.5 whitespace-nowrap font-sans text-[10px] sm:text-xs font-medium tracking-[0.08em] sm:tracking-[0.12em] text-foreground/80">
                 Kuruluş Yılı
               </p>
             </div>
@@ -179,7 +179,7 @@ export function HeroSection() {
               <p className="font-sans text-2xl sm:text-3xl text-gold tracking-wide font-semibold">
                 <AnimatedNumber to={30} suffix="+" />
               </p>
-              <p className="text-[10px] sm:text-xs text-muted-foreground/65 mt-1.5 tracking-[0.04em] sm:tracking-[0.08em] whitespace-nowrap">
+              <p className="mt-1.5 whitespace-nowrap font-sans text-[10px] sm:text-xs font-medium tracking-[0.08em] sm:tracking-[0.12em] text-foreground/80">
                 Müşteriye Hizmet Verildi
               </p>
             </div>
@@ -187,7 +187,7 @@ export function HeroSection() {
               <p className="font-sans text-2xl sm:text-3xl text-gold tracking-wide font-semibold">
                 <AnimatedNumber to={15} suffix="+" />
               </p>
-              <p className="text-[10px] sm:text-xs text-muted-foreground/65 mt-1.5 tracking-[0.04em] sm:tracking-[0.08em] whitespace-nowrap">
+              <p className="mt-1.5 whitespace-nowrap font-sans text-[10px] sm:text-xs font-medium tracking-[0.08em] sm:tracking-[0.12em] text-foreground/80">
                 Farklı Sektör
               </p>
             </div>
@@ -195,7 +195,7 @@ export function HeroSection() {
               <p className="font-sans text-2xl sm:text-3xl text-gold tracking-wide font-semibold">
                 <AnimatedNumber to={100} suffix="%" />
               </p>
-              <p className="text-[10px] sm:text-xs text-muted-foreground/65 mt-1.5 tracking-[0.04em] sm:tracking-[0.08em] whitespace-nowrap">
+              <p className="mt-1.5 whitespace-nowrap font-sans text-[10px] sm:text-xs font-medium tracking-[0.08em] sm:tracking-[0.12em] text-foreground/80">
                 Müşteri Memnuniyeti
               </p>
             </div>
